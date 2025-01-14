@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Todo from "./Todo";
 
 function Greeting(props) {
   return <h1>Hello, {props.name}!</h1>;
@@ -126,6 +127,98 @@ function FormHandler() {
   );
 }
 
+function FruitsList() {
+  let fruits = ["mango", "apple", "banana", "grapes", "jackfruit"];
+  let names = [
+    { id: 1, user: "Keshav" },
+    { id: 4, user: "Reba" },
+    { id: 3, user: "Kanchan" },
+    { id: 4, user: "Upama" },
+    { id: 2, user: "Bibika" },
+  ];
+  return (
+    <>
+      <center>
+        <ul>
+          {fruits.map((fruit, index) => (
+            // without unique keys, by default it will be begin with 1
+            <li key={index} type="i">
+              {fruit}
+            </li>
+          ))}
+        </ul>
+        <ul>
+          {names.map((name) => (
+            <li key={name.id} type="square">
+              {name.user}
+            </li>
+          ))}
+        </ul>
+      </center>
+    </>
+  );
+}
+
+function MultiForm() {
+  const [formData, setFormData] = useState({ name: "", email: "" });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    alert(`Submitted Data: ${JSON.stringify(formData)}`);
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          placeholder="type something"
+          value={formData.name}
+          name="name"
+          onChange={handleChange}
+        />
+        <br />
+        <label>Email:</label>
+        <input
+          type="email"
+          placeholder="type something"
+          value={formData.email}
+          name="email"
+          onChange={handleChange}
+        />
+        <br />
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </>
+  );
+}
+function ChildComponent({ title }) {
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleActive = () => {
+    setIsActive(!isActive);
+  };
+  return (
+    <>
+      <div>
+        <h2>{title}</h2>
+        <p>Status: {isActive ? "Active" : "Inactive"}</p>
+        <button type="button" onClick={toggleActive}>
+          {isActive ? "Deactivate" : "Activate"}
+        </button>
+      </div>
+    </>
+  );
+}
 // main function
 function App() {
   return (
@@ -139,6 +232,10 @@ function App() {
         <ClickHandle />
         <InputHandler />
         <FormHandler />
+        <FruitsList />
+        <MultiForm />
+        <ChildComponent title="Hello" />
+        <Todo />
       </center>
     </>
   );
