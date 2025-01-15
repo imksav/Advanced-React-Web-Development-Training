@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Todo from "./Todo";
+import BasicForm from "./BasicForm";
 
 function Greeting(props) {
   return <h1>Hello, {props.name}!</h1>;
@@ -163,8 +164,9 @@ function MultiForm() {
   const [formData, setFormData] = useState({ name: "", email: "" });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    // const { name, value } = event.target;
+    // setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
@@ -236,6 +238,7 @@ function App() {
         <MultiForm />
         <ChildComponent title="Hello" />
         <Todo />
+        <BasicForm />
       </center>
     </>
   );
